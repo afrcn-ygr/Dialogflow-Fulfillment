@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify
 
-app = Flask("app")
+app = Flask(__name__)
 
 # Route 1: Return student number (for testing)
 @app.route('/student-info', methods=['GET'])
@@ -19,12 +19,12 @@ def webhook():
     response_text = "I couldn't understand that request."
 
     if intent_name == "Place Order":
-        response_text = "Your order has been received! What would you like to order?"
+        response_text = "Your order request has been received! What would you like to order?"
 
     # Send response back to Dialogflow
     return jsonify({
         "fulfillmentText": response_text
     })
 
-if __name__ == 'main':
-    app.run(port=5000, debug=True)
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=8080, debug=True)
